@@ -32,7 +32,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email', 'profile']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['namanmurarka07.pythonanywhere.com']
+ALLOWED_HOSTS = ['namanmurarka0710.pythonanywhere.com']
 
 SITE_ID = 1
 
