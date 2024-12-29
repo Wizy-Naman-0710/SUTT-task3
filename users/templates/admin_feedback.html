@@ -1,0 +1,17 @@
+{% extends 'admin_layout.html' %}
+
+{% block content %}
+<div class="h-[100vh] w-[18vw] shadow-md p-6 z-10 flex-non overflow-y-scroll">
+  <h1 class="text-xl font-bold text-gray-700 mb-6">Students</h1>
+  {% for room in rooms %}
+  <a href="{% url 'users:admin_chat' room.student.bits_id %}">
+    <div class="bg-slate-200 font-bold text-sm p-2 mb-4 rounded-lg">
+      <p>{{ room.student.student_name }} </p>
+      <p>{{ room.student.bits_id }} </p>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% block chat %}
+{% endblock %}
+{% endblock %}

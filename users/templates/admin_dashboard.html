@@ -1,0 +1,21 @@
+{% extends 'admin_layout.html' %}
+
+{% block content %}
+
+<div class="flex-1 p-6 w-full h-[100vh]  bg-gray-50 text-gray-700">
+    <div class="grid grid-rows-4 grid-cols-3 gap-4 h-full w-full">
+        <div class="bg-white shadow-sm rounded-2xl p-4 text-center font-bold">
+            <p>Name</p>
+            <p class=" flex text-3xl justify-center items-center mt-10 text-teal-400 font-mono">{{ user_name }} </p>
+        </div>             
+        <div class="bg-white shadow-sm rounded-2xl p-4 text-center font-bold">
+            <p>Total Number of Books</p>
+            <p class=" flex text-3xl justify-center items-center mt-10 text-teal-400 font-mono">{{ total_books }} </p>
+        </div>
+        <div class="bg-white shadow-sm rounded-2xl p-4 text-center font-bold">
+            <p>Books Currently Issued</p>
+            <p class=" flex text-3xl justify-center items-center mt-10 text-teal-400 font-mono">{{ borrowed_books }} </p>
+        </div>
+    </div>            
+</div>
+{% endblock %}

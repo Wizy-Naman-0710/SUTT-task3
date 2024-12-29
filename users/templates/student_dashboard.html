@@ -1,0 +1,62 @@
+{% extends 'student_layout.html' %}
+
+{% block content %}
+
+
+<div class="flex-1 p-6 w-full h-[100vh] bg-gray-50 text-gray-700">
+    <div class="grid grid-rows-4 grid-cols-3 gap-4 h-full w-full">
+        
+
+        <div class="bg-white shadow-sm rounded-2xl p-4 text-center font-bold">
+            <p>Student</p>
+            <p class="flex text-3xl justify-center items-center mt-10 text-teal-400 font-mono">{{ student.student_name }}</p>
+        </div>
+        <div class="bg-white shadow-sm rounded-2xl p-4 text-center font-bold">
+            <p>Bits ID</p>
+            <p class="flex text-3xl justify-center items-center mt-10 text-teal-400 font-mono">{{ student.bits_id }}</p>
+        </div> 
+
+        <div class="bg-white shadow-sm rounded-2xl p-4 text-center font-bold">
+            <p>Hostel</p>
+            <p class="flex text-3xl justify-center items-center mt-10 text-teal-400 font-mono">{{ student.hostel }}</p>
+        </div>
+        
+    
+       
+        <div class="bg-white shadow-sm rounded-2xl p-4 col-span-2 row-span-5">
+            <p class="text-gray-700 font-bold text-xl mb-6 ml-2">Current Books</p>
+            
+            <div class="h-[62vh] overflow-y-scroll rounded-lg">
+                {% for record in records %}
+                <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                    <p class="text-sm text-gray-700 mb-4">{{ record.book.title }}</p>
+                    <div class="text-sm text-gray-500">Date of Issue: {{ record.borrow_date }}</div>
+                    <div class="text-sm text-gray-500">Date of Return: {{ record.return_date }}</div>
+                    <a href="{% url 'users:return_book' record.record_id %}">
+                        <button class="text-sm font-bold bg-teal-400 rounded-lg w-32 p-2 mt-4 mr-2 text-white hover:scale-105 duration-200">Return</button>
+                    </a>
+                    <a href="{% url 'users:reissue_book' record.record_id %}">
+                        <button class="text-sm font-bold bg-teal-400 rounded-lg w-32 p-2 mt-4 mr-2 text-white hover:scale-105 duration-200">Re-issue</button>
+                    </a>
+                    <a href="{% url 'users:student_book_details' record.book.isbn %}">
+                        <button class="text-sm font-bold bg-teal-400 rounded-lg w-32 p-2 mt-4 mr-2 text-white hover:scale-105 duration-200">View</button>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="bg-white shadow-sm rounded-2xl p-4 text-center font-bold">
+            <p>Current Number of Books</p>
+            <p class="flex text-3xl justify-center items-center mt-10 text-teal-400 font-mono">{{ current_books }}</p>
+        </div>
+        <div class="bg-white shadow-sm rounded-2xl p-4 text-center font-bold">
+            <p>Late Fees</p>
+            <p class="flex text-3xl justify-center items-center mt-10 text-teal-400 font-mono">{{ total_fees }}</p>
+        </div>
+
+    </div>
+        
+</div>
+
+{% endblock %}

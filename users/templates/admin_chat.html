@@ -1,0 +1,42 @@
+{% extends 'admin_feedback.html' %}
+
+{% block chat %}
+<div class="h-[100vh] w-[18vw] shadow-md p-6 z-10 flex-non">
+    <h1 class="text-xl font-bold text-gray-700 mb-6">Write a Response</h1>
+    
+    <form action="" method="post">
+      {% csrf_token %}
+     
+          <input required type="text" name="subject" id="subject" class="w-full p-2 text-sm rounded-md shadow-sm mb-6 bg-gray-100" placeholder="Subject">
+          <textarea required name="body" id="body" class="w-full bg-gray-100 rounded-md  shadow-sm text-sm p-2 h-[20vh]" placeholder="Body"></textarea>
+          <button class=" p-2 bg-teal-400 mt-4 rounded-md text-xs text-white font-bold pl-6 pr-6 hover:scale-105 duration-150" type="submit">Submit</button>
+        
+    </form>
+  </div>
+  <div class="p-4 h-[100vh] w-[46vw] overflow-y-scroll">
+    {% for feedback in feedbacks %}
+      <div class="flex  items-center mb-4 
+            {% if feedback.admin_reply %}
+              justify-start 
+            {% else %}
+              justify-end
+            {% endif %}
+      
+      ">
+        <div class="bg-slate-200 text-sm text-gray-700 p-4 rounded-md shadow-md w-96">
+          <p class="font-bold text-teal-400 mb-2">
+            {% if feedback.admin_reply %}
+              Admin 
+            {% else %}
+              {{ feedback.student.student_name }} 
+            {% endif %}
+          </p>
+          <p>Date: {{ feedback.date }} </p>
+          <p>Subject: {{ feedback.subject }} </p>
+          <p>Body: {{ feedback.body }} </p>
+        </div>
+      </div>
+      {% endfor %}
+   
+  </div>
+{% endblock %}

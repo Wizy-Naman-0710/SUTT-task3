@@ -1,0 +1,30 @@
+{% extends 'admin_layout.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="max-h-[100vh] w-[82vw] overflow-y-auto p-8">
+
+  {% for book in books %}
+    <div class="relative flex items-center w-full h-60 rounded-lg shadow-md duration-150 p-3 mt-6 mb-6 bg-white">
+      <div class="w-60 h-full rounded-lg">
+        {% if book.book_cover_image %}
+                <img src="{{ book.book_cover_image.url }}" alt="{{ book.title }} Cover" class="w-full h-auto rounded-lg shadow-md mb-4">
+            {% else %}
+                <img src="{% static 'users/default_cover.jpg' %}" alt="Default Book Cover" class="w-full h-auto rounded-lg shadow-md mb-4">
+            {% endif %}
+      </div>
+      <div class="w-full h-full p-6">
+        <h1 class="font-poppins antialiased text-xl text-gray-700">{{ book.title }}</h1>
+        <p class="mt-4 font-light text-gray-900 text-sm">{{ book.author }}</p>
+        <p class="font-light text-gray-900 text-sm">{{ book.isbn }}</p>
+      </div>
+      <div class="w-96 h-full p-6 font-bold text-white">
+        <a href="{% url 'users:admin_book_details' book.isbn %}"><button class="block bg-teal-400 rounded-xl p-4 w-full mb-2 hover:scale-105 duration-200">View</button></a>
+        <a href="{% url 'users:delete_book' book.isbn %}"><button class="block bg-red-400 rounded-xl p-4 w-full mb-2 hover:scale-105 duration-200">Remove</button></a>
+        <a href="{% url 'users:admin_change_details' book.isbn %}"><button class="block bg-yellow-400 rounded-xl p-4 w-full mb-2 hover:scale-105 duration-200">Edit</button></a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

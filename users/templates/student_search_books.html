@@ -1,0 +1,69 @@
+{% extends 'student_layout.html' %}
+{% load static %} 
+{% block content %}
+
+<div class="p-6 w-full">
+  <form action="" method="post">
+    <div id="search-box" class=" top-0 z-10 bg-gray-50 shadow-sm">
+      {% csrf_token %}
+      <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+        <div class="grid place-items-center h-full w-12 text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          
+        </div>
+        
+        <select id="search-by" name="search-by" required class="peer h-full w-32 text-sm text-gray-700 bg-white border-none outline-none pl-4 pr-2 rounded-l-lg">
+          <option value="title">Title</option>
+          <option value="isbn">ISBN</option>
+        </select>
+        <input
+          required
+          class="peer h-full w-full border-none outline-none text-sm text-gray-700 pr-2"
+          type="text"
+          id="search"
+          value="{{search_value}}"
+          name="search"
+          placeholder="Search Your Favourite Books.." />
+          <button type="submit" class="px-6 bg-teal-400 py-2 text-white rounded-lg">Search</button>
+      </div>
+    </div>
+    
+    
+    
+    
+  </form>
+  
+  <!-- Scrollable Content -->
+  <div class="max-h-[85vh] overflow-y-auto mt-4">
+    <!-- Card 1 -->
+
+    <div >
+      {% for message in messages %}
+      <p class="p-4 text-red-500">{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% for book in books %}
+    <div class="relative flex items-center w-full h-60 rounded-lg shadow-md p-3 mt-6 mb-6 bg-white">
+      <div class="w-60 h-full rounded-lg">
+        {% if book.book_cover_image %}
+              <img src="{{ book.book_cover_image.url }}" alt="{{ book.title }} Cover" class="w-full h-full rounded-lg">
+          {% else %}
+              <img src="{% static 'users/default_cover.jpg' %}" alt="John image" class="w-full h-full rounded-lg">
+          {% endif %}
+      </div>
+      <div class="w-full h-full p-6">
+        <h1 class="font-poppins antialiased text-xl text-gray-700">{{ book.title }}</h1>
+        <p class="mt-4 font-light text-gray-900 text-sm">{{ book.author }} </p>
+        <p class="font-light text-gray-900 text-sm">{{ book.isbn }}</p>
+      </div>
+      <div class="w-96 h-full p-6 font-bold text-white">
+        <a href="{% url 'users:student_book_details' book.isbn %}"><button class="block bg-teal-400 rounded-xl p-4 w-full mb-2 hover:scale-105 duration-200">View</button></a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% endblock %}
